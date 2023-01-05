@@ -1,7 +1,7 @@
 
 //alert('making a request to API!')
 
-
+//adding a change from branch master, to be added to branch main later!
 
 /* Implementation of the presentation of the audio player 
 At this point I have a nice card with an image. now I need to add the buttons
