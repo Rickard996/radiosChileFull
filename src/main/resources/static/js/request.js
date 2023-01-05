@@ -20,7 +20,7 @@ const encabezado = document.querySelector('.encabezado')
 
 //we dont need ; in javascript so far
 //url of the api rest-type
-const url = 'http://localhost:7903/api/radios'
+const url = 'https://ricardoradioschile.up.railway.app/api/radios'
 
 fetch(url)
         .then(response=>{
