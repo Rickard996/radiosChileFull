@@ -1,4 +1,6 @@
 /* Implementation of the presentation of the audio player */
+//this will not be used in production
+
 import lottieWeb from 'https://cdn.skypack.dev/lottie-web';
 
 //funcionamiento de los botones de audio

@@ -3,6 +3,10 @@
 
 //adding a change from branch master, to be added to branch main later!
 
+
+/* Implementation of the presentation of the audio player */
+import lottieWeb from 'https://cdn.skypack.dev/lottie-web';
+
 /* Implementation of the presentation of the audio player 
 At this point I have a nice card with an image. now I need to add the buttons
 to control the radio
@@ -20,7 +24,9 @@ const encabezado = document.querySelector('.encabezado')
 
 //we dont need ; in javascript so far
 //url of the api rest-type
+//url for production
 const url = 'https://ricardoradioschile.up.railway.app/api/radios'
+
 
 fetch(url)
         .then(response=>{
@@ -63,6 +69,7 @@ fetch(url)
                                         thirdDiv.setAttribute('class', 'audio-player-container')
                                         thirdDiv.setAttribute('align', 'center')
                                         secondDiv.appendChild(thirdDiv)
+
                                         //inside the thirdDiv
                                         const audioPlay = document.createElement('audio')
                                         audioPlay.setAttribute('src', radio.icecastSource)
@@ -97,7 +104,71 @@ fetch(url)
                                         finalDiv.appendChild(seekSlider)
                                         finalDiv.appendChild(volumeSlider)
                                         finalDiv.appendChild(mute)
-                                        
+
+                                        //now that everything is created, i can use them for the animations and functionality
+                                        let playState = 'play';
+                                        let muteState = 'unmute';
+
+                                        const playAnimation = lottieWeb.loadAnimation({
+                                            container: buttonPlay,
+                                            path: 'https://maxst.icons8.com/vue-static/landings/animated-icons/icons/pause/pause.json',
+                                            renderer: 'svg',
+                                            loop: false,
+                                            autoplay: false,
+                                            name: "Play Animation",
+                                        })
+
+                                        playAnimation.goToAndStop(14, true);
+
+                                        buttonPlay.addEventListener('click', () => {
+                                            if(playState === 'play') {
+                                                playState = 'pause';
+                                                audioPlay.play();
+                                                playAnimation.playSegments([14, 27], true);
+                                                requestAnimationFrame(whilePlaying);
+                                                
+                                            } else {
+                                                playState = 'play';
+                                                audioPlay.pause();
+                                                playAnimation.playSegments([0, 14], true);
+                                                cancelAnimationFrame(raf);
+                                                
+                                            }
+                                        });
+
+                                        //mute
+
+                                        const muteAnimation = lottieWeb.loadAnimation({
+                                            container: mute,
+                                            path: 'https://maxst.icons8.com/vue-static/landings/animated-icons/icons/mute/mute.json',
+                                            renderer: 'svg',
+                                            loop: false,
+                                            autoplay: false,
+                                            name: "Mute Animation",
+                                        });
+                                    
+                                        mute.addEventListener('click', () => {
+                                            if(muteState === 'unmute') {
+                                                muteAnimation.playSegments([0, 15], true);
+                                                audioPlay.muted = true;
+                                                muteState = 'mute';
+                                            } else {
+                                                muteAnimation.playSegments([15, 25], true);
+                                                audioPlay.muted = false;
+                                                muteState = 'unmute';
+                                            }
+                                        });
+
+                                        //volume controller
+                                        volumeSlider.addEventListener('input', (e) => {
+                                            showRangeProgress(e.target);
+                                        });
+                                    
+                                        volumeSlider.addEventListener('input', (e) => {
+                                            const value = e.target.value;
+                                            outputVolume.textContent = value;
+                                            audioPlay.volume = value / 100;
+                                        });
 
                                     }); //end foreach
 
@@ -115,5 +186,3 @@ fetch(url)
             }
 
         })
-        
-
