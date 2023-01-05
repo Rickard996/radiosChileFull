@@ -4,7 +4,7 @@ import lottieWeb from 'https://cdn.skypack.dev/lottie-web';
 //funcionamiento de los botones de audio
 const playIconContainer = document.querySelectorAll('.play-icon');
 const audioPlayerContainer = document.querySelector(".audio-player-container");
-const seekSlider = document.querySelector(".seek-slider");
+const seekSlider = document.querySelector('.seek-slider');
 const volumeSlider = document.querySelectorAll('.volume-slider');
 const muteIconContainer = document.querySelectorAll('.mute-icon');
 let playState = 'play';
@@ -68,7 +68,7 @@ const showRangeProgress = (rangeInput) => {
     else audioPlayerContainer.style.setProperty('--volume-before-width', rangeInput.value / rangeInput.max * 100 + '%');
 }
 
-seekSlider.addEventListener('input', e => {
+seekSlider.addEventListener('input', (e) => {
     showRangeProgress(e.target);
 });
 
