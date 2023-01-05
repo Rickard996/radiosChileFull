@@ -68,7 +68,7 @@ const showRangeProgress = (rangeInput) => {
     else audioPlayerContainer.style.setProperty('--volume-before-width', rangeInput.value / rangeInput.max * 100 + '%');
 }
 
-seekSlider.addEventListener('input', (e) => {
+seekSlider.addEventListener('input', e => {
     showRangeProgress(e.target);
 });
 
